@@ -1,0 +1,92 @@
+<apex:page Controller="CustomLookup_ctrl" tabStyle="User" sidebar="false" id="pageId" showHeader="false">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/JavaScript" /> 
+   
+    <apex:form id="mainFormId">
+        
+        <div class="outerdiv">
+            <input type="button" value="Close Window" style="float:right;" onclick="onClose();"/>
+            <input type="button" value="Save" style="float:right;" onclick="onSave();"/>   
+            <div class="innerdiv"></div>
+                <div style="float: left; width: 50px; margin-top: -20px; margin-left: 40px">
+                    <h1>Lookup</h1>
+                </div>
+                <apex:pageMessages id="msgId"/>                
+            
+            <div class="pbBody">
+                <h2 style="padding-bottom: 5px; padding-top: 5px;">Select the
+                    Email Ids to add.</h2>
+            </div>      
+            <apex:pageblock >
+                <apex:outputPanel id="tblId">
+                    <apex:pageBlockSection columns="1">
+                         <apex:pageBlockTable value="{!listOfLookupsElement}" var="e">
+                             <apex:column width="2%">
+                                 <apex:facet name="header">
+                                     <apex:inputCheckbox value="{!isAllSelectCheckBox}" >
+                                         <apex:actionSupport action="{!onSelectAll}" event="onclick" reRender="msgId,csvPhoneNumberId,csvPhoneNameId" oncomplete="selectAll(this);" status="ajaxStatus"/>
+                                     </apex:inputCheckbox>
+                                 </apex:facet>
+                                 <apex:inputCheckbox value="{!e.isChecked}" id="checkBoxId" styleClass="case">
+                                     <apex:actionSupport action="{!onCheck}" event="onclick" reRender="msgId,csvPhoneNumberId,csvPhoneNameId"  status="ajaxStatus"/>
+                                 </apex:inputCheckbox>
+                             </apex:column>
+                             <apex:column headerValue="Name" width="40%">
+                                 <apex:outputLabel value="{!e.sObjectNameField}" for="checkBoxId"/>
+                             </apex:column>
+                             
+                             <apex:column headerValue="Email" width="38%">
+                                 <apex:outputLabel value="{!e.sObjectPhone}"/>
+                             </apex:column>
+                         </apex:pageBlockTable>
+                    </apex:pageBlockSection>
+                </apex:outputPanel>
+            </apex:pageblock>
+            </div>
+        <apex:inputHidden value="{!phoneNumberPassToTextBox}" id="csvPhoneNumberId"/>
+        <apex:inputHidden value="{!phoneNamePassToHdn}" id="csvPhoneNameId"/>
+        <script>
+            function fillIn(){                
+                var phoneNumbers = $('input[id$=csvPhoneNumberId]').val();            
+                var phoneName = $('input[id$=csvPhoneNameId]').val(); 
+                         
+                var winMain1 = window.opener;
+                if (null == winMain1){
+                     winMain1=window.parent.opener;
+                }                
+                var elem = winMain1.document.getElementById('pageId:mainFormId:pgBId:pgBSId:pgBSIdItem:phoneNumberFieldId');            
+                var elemName = winMain1.document.getElementById('pageId:mainFormId:pgBId:pgBSId:pgBSIdItem:phoneNameFieldId');  
+                elem.value = phoneNumbers ;//document.getElementById('mainPageId:mainFormId:csvPhoneNumberId').value;    
+                elemName.value = phoneName ;//document.getElementById('mainPageId:mainFormId:csvPhoneNameId').value;            
+            }
+            function onClose(){
+              var winMain=window.opener;
+              if (null==winMain)
+              {
+                 winMain=window.parent.opener;
+              }
+              winMain.closeLookupPopup();
+           }       
+    
+    function onSave(){
+        	  fillIn();
+              var winMain=window.opener;
+              if (null==winMain)
+              {
+                 winMain=window.parent.opener;
+              }
+              winMain.closeLookupPopup();
+           }   
+           //To select All
+           function selectAll(src){           
+               if(src.checked){ 
+                   $('.case').attr('checked', true);
+               }else{
+                   $('.case').removeAttr("checked");
+               }
+               //fillIn();
+           }
+           
+        </script>
+           
+    </apex:form>
+</apex:page>

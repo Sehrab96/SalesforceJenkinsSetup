@@ -1,0 +1,22 @@
+<apex:page controller="TanyaController">
+  <apex:form >
+      <apex:sectionHeader title="Pagination" subtitle="Hi"/>
+      <apex:pageBlock >
+          <apex:pageBlockSection >
+              <apex:pageBlockTable value="{!accInnerObj}" var="inner">
+                  <apex:column >
+                      <apex:inputCheckbox value="{!inner.isSelected}"/>
+                  </apex:column> 
+                  <apex:column headerValue="Account"> 
+                      <apex:outputText value="{!inner.acc.Name}" />
+                  </apex:column>    
+              </apex:pageBlockTable>
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+      
+      <br/>
+      <apex:commandButton value="<<Previous" action="{!previous}" rendered="{!hasPrevious}"/>
+      <apex:commandButton value="Next >>" action="{!next}" rendered="{!hasNext}"/>
+      
+  </apex:form>
+</apex:page>

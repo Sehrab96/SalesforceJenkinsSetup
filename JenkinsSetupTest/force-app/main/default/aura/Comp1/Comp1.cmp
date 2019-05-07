@@ -1,0 +1,6 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute Name = "abc" type = "boolean" default="false"/>
+	
+    <lightning:input  type="checkbox" value = "{!v.abc}" onchange="{!c.myAction}"/>
+	value of abc "{!v.abc}"    
+</aura:component>
