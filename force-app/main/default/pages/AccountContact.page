@@ -1,0 +1,61 @@
+<apex:page controller="AccountsController" docType="html-5.0">
+    
+    <apex:form >
+        <apex:pageBlock >
+            
+            <apex:commandButton action="{!AddNewContact}" value="Add New Contact" reRender="abc" / >
+                
+                <apex:pageBlockSection >
+                    <apex:pageBlockTable value="{!AllContacts}" var="a" id="abc">
+                        <apex:column headerValue="Delete" >
+                            <apex:commandButton action="{!URLFOR($Action.Contact.Delete,a.id)}" value="Delete"/> 
+                        </apex:column>
+                        <apex:column value="{!a.FirstName}"/>
+                        <apex:column value="{!a.LastName}"/>   
+                        <apex:column value="{!a.Phone}"/>
+                    </apex:pageBlockTable>
+                    
+                    <apex:inlineEditSupport hideOnEdit="editButton" event="ondblclick"/>
+                    
+                    <apex:selectList value="{!AccountName}" size="1">
+                        <apex:selectOptions value="{!AllAccounts}" />
+                        <apex:actionSupport event="onchange" reRender="abc"/>
+                    </apex:selectList>
+                    <apex:outputLabel value="Name"></apex:outputLabel><apex:input value="{!LastName}"/>
+                    <apex:outputLabel value="Phone"></apex:outputLabel><apex:input value="{!Phone}" type="number"/>
+                <apex:outputLabel value="Choose Account"/>
+                <div style="float:left; position:absolute">
+                    
+                    <apex:selectRadio value="{!RadioValue}">
+                        <apex:selectOptions value="{!RadioOptions}"/>
+                        <apex:actionSupport event="onchange" action="{!ShowDiv}"/>
+                    </apex:selectRadio>
+                    <br/>
+                    <div id="Existing_Div" style="display:{!if(ChooseExisting,"block","none")}; float:left; position:relative">
+                        <table >                        
+                            <tr>
+                                <td>Select Account</td>
+                                <td>
+                                    <apex:selectList value="{!NewAccountName}" size="1">
+                                        <apex:selectOptions value="{!AllAccounts}" />
+                                        <apex:actionSupport event="onchange"/>
+                                    </apex:selectList> 
+                                </td>                   
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="NewAccount_Div" style="display:{!if(NewAccount,"block","none")}; float:left; position:relative">
+                        <table >                        
+                            <tr>
+                                <td>Account Name</td>
+                                <td>
+                                    <apex:input value="{!NewAccountName}"/>
+                                </td>                   
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+        </apex:form>
+    </apex:page>

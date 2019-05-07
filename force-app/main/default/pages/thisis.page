@@ -1,0 +1,26 @@
+<apex:page controller="AccountDataController">
+
+        <apex:form >
+	<apex:pageBlock title="Accounts">
+        <apex:pageBlockSection title="All Accounts" collapsible="false">
+       			<apex:dataTable value="{!AllAccounts}" var="account">
+            	<apex:column value="{!account.Name}"/>
+                <apex:column value="{!account.Type}"/>
+                <apex:column value="{!account.Rating}"/>
+            </apex:dataTable>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Choose Account type">
+          <apex:inputField value="{!account.Type}" onchange="{!TypeValue}"></apex:inputField>
+          	  <!---<apex:commandButton value="Get Accounts" action="{!Render}" rerender="renderit"/> -->
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection id="renderit" title="Selected Accounts">
+          <apex:dataTable value="{!AllAccounts}" var="acc" >
+            	<apex:column value="{!acc.Name}"/>
+                <apex:column value="{!acc.Type}"/>
+                <apex:column value="{!acc.Rating}"/>
+            </apex:dataTable>
+        </apex:pageBlockSection> 
+    </apex:pageBlock></apex:form>
+
+</apex:page>
