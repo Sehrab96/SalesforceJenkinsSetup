@@ -62,6 +62,7 @@ public class AccountDataController {
         public cAccount(Account a , Boolean Selected) {
             acc = a;
             selected = Selected;
+            System.debug('Test');
         }
     }
 }
