@@ -62,7 +62,7 @@ public class AccountDataController {
         public cAccount(Account a , Boolean Selected) {
             acc = a;
             selected = Selected;
-            System.debug('Committed on 19th June - 8:00 AM - Heroku - Jenkins - SFDX setup');
+            System.debug('Committed on 20th June - 12:00 PM - Heroku - Jenkins - SFDX setup');
         }
     }
 }
